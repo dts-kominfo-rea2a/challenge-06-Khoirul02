@@ -18,33 +18,34 @@ let modifyFile3 = (val) => {
 
 // TODO: Kerjakan bacaData
 // gunakan variabel file1, file2, dan file3
-const bacaData = () => {
+const bacaData = (fnCallback) => {
   var hasil = [];
-  fs.readFile('./data1.json', 'utf8', (err, data1) => {
+  fs.readFile(file1, 'utf8', (err, data1) => {
     if (err) {
-      console.error(err);
-      return;
+      // console.error(err);
+      return fnCallback(err, null);
     }
     let Data1 = JSON.parse(data1)
     let ambilKataBelakang1 = Data1.message.split(' ').slice(-1).join(' ');
     hasil.push(ambilKataBelakang1);
-    fs.readFile('./data2.json', 'utf8', (err, data2) => {
+    fs.readFile(file2, 'utf8', (err, data2) => {
       if (err) {
-        console.error(err);
-        return;
+        // console.error(err);
+        return fnCallback(err, null);
       }
       let Data2 = JSON.parse(data2)
       let ambilKataBelakang2 = Data2[0].message.split(' ').slice(-1).join(' ');
       hasil.push(ambilKataBelakang2);
-      fs.readFile('./data3.json', 'utf8', (err, data3) => {
+      fs.readFile(file3, 'utf8', (err, data3) => {
         if (err) {
-          console.error(err);
-          return;
+          // console.error(err);
+          return fnCallback(err, null);
         }
         let Data3 = JSON.parse(data3)
         let ambilKataBelakang3 = Data3[0].data.message.split(' ').slice(-1).join(' ');
         hasil.push(ambilKataBelakang3);
-        console.log(hasil);
+        // console.log(hasil);
+        fnCallback(null, hasil);
       });
     });
   });
